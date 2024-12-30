@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic Simulation Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Traffic Simulation Dashboard</h1>
+    
+    <canvas id="vehicleCountsChart" width="400" height="200"></canvas>
+
+    <script>
+        let vehicleCountsChart = null;  // Store reference to the chart instance
+
+        function fetchSimulationData() {
+            console.log('Fetching data...');  // Debugging line
+            fetch('http://127.0.0.1:5500/simulation-data')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Data received:', data);  // Debugging line
+                updateCharts(data);
+            })
+            .catch(error => console.error('Error fetching data:', error));
+        }
+
+        function updateCharts(data) {
+            const finalVehicleCounts = data.final_vehicle_counts;
+            console.log('Final vehicle counts:', finalVehicleCounts);  // Debugging line
+
+            // Destroy the existing chart if it exists
+            if (vehicleCountsChart) {
+                vehicleCountsChart.destroy();
+            }
+
+            // Create a new chart
+            vehicleCountsChart = new Chart(document.getElementById('vehicleCountsChart'), {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(finalVehicleCounts),
+                    datasets: [{
+                        label: 'Final Vehicle Counts',
+                        data: Object.values(finalVehicleCounts),
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        setInterval(fetchSimulationData, 5000);
+    </script>
+</body>
+</html>

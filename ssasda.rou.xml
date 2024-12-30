@@ -1,0 +1,45 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- VTypes -->
+ 
+    <!-- Define vehicle types -->
+    <vType id="car" accel="1.0" decel="1.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="50" color="1,0,0"/>
+    <vType id="bus" accel="0.8" decel="1.3" sigma="0.5" length="12" minGap="3.0" maxSpeed="40" color="0,1,0"/>
+    <vType id="truck" accel="0.6" decel="1.0" sigma="0.5" length="8" minGap="3.5" maxSpeed="40" color="0,0,1"/>
+    <vType id="bike" accel="2.0" decel="2.0" sigma="0.5" length="2" minGap="1.0" maxSpeed="30" color="1,1,0"/>
+    <vType id="pedestrian" vClass="pedestrian" speedFactor="1.0" length="0.5" minGap="0.2" color="0,0,0"/>
+
+    <!-- Define routes -->
+    <route id="r_0" edges="E0 E1"/>
+    <route id="r_1" edges="E0 E2"/>
+    <route id="r_10" edges="-E3 -E0"/>
+    <route id="r_11" edges="-E3 E1"/>
+    <route id="r_2" edges="E0 E3"/>
+    <route id="r_3" edges="-E2 -E0"/>
+    <route id="r_4" edges="-E2 E1"/>
+    <route id="r_5" edges="-E2 E3"/>
+    <route id="r_6" edges="-E1 E2"/>
+    <route id="r_7" edges="-E1 -E0"/>
+    <route id="r_8" edges="-E1 E3"/>
+    <route id="r_9" edges="-E3 E2"/>
+
+    <!-- Insert vehicles using the defined routes -->
+    <vehicle id="car_1" type="car" route="r_0" depart="0"/>
+    <vehicle id="bus_1" type="bus" route="r_1" depart="5"/>
+    <vehicle id="truck_r0" type="truck" route="r_0" depart="10"/>
+    <vehicle id="bike_1" type="bike" route="r_3" depart="15"/>
+    <vehicle id="car_2" type="car" route="r_4" depart="20"/>
+    <vehicle id="bus_2" type="bus" route="r_5" depart="25"/>
+    <vehicle id="truck_r10" type="truck" route="r_10" depart="30"/>
+    <vehicle id="bike_2" type="bike" route="r_7" depart="35"/>
+    <vehicle id="car_3" type="car" route="r_8" depart="40"/>
+    <vehicle id="bus_3" type="bus" route="r_9" depart="45"/>
+    <vehicle id="bike_3" type="bike" route="r_11" depart="50"/>
+
+    <!-- Insert pedestrians -->
+    <person id="ped_1" type="pedestrian" depart="10">
+        <walk edges="E0 E1"/>
+    </person>
+    <person id="ped_2" type="pedestrian" depart="15">
+        <walk edges="E1 E0"/>
+    </person>
+</routes>
